@@ -1,0 +1,15 @@
+.county {
+    fill: #FF1E00;
+    stroke: #FF1E00;
+}
+.minbounds {
+    fill: none;
+    stroke: #FF0;
+    stroke-dasharray: 2, 2;
+    stroke-linejoin: round;
+}
+.majbounds {
+    fill: none;
+    stroke: #fff;
+    stroke-linejoin: round;
+}
