@@ -2,6 +2,7 @@ D3 Color Notes:
 
 * [D3 Color Tutorial](http://www.schneidy.com/Tutorials/ColorTutorial.html)
 * [http://colorbrewer2.org/](http://colorbrewer2.org/)
+* [http://www.sitepoint.com/javascript-generate-lighter-darker-color/](http://www.sitepoint.com/javascript-generate-lighter-darker-color/)
 
 Map Learning Tutes:
 
@@ -13,6 +14,8 @@ Map Learning Tutes:
 Data Sources:
 
 * [http://www.geonames.org/](http://www.geonames.org/)
+* [https://github.com/mbostock/us-atlas](https://github.com/mbostock/us-atlas)
+* [http://data.worldbank.org/country/united-states](http://data.worldbank.org/country/united-states)
 
 Cool Map Viz Stuff:
 
@@ -21,3 +24,8 @@ Cool Map Viz Stuff:
 D3+Three.js
 
 * [https://github.com/ftorghele/worldMap](https://github.com/ftorghele/worldMap)
+
+Interesting Projects
+
+* [http://code.minnpost.com/simple-map-d3/](http://code.minnpost.com/simple-map-d3/)
+* [http://dabrownstein.wordpress.com/category/data-visualization/](http://dabrownstein.wordpress.com/category/data-visualization/)
