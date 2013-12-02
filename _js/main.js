@@ -1,3 +1,5 @@
+var topNav = document.getElementById('topNav').offsetHeight;
+
 var width = window.innerWidth,
     height = window.innerHeight,
     centered;
@@ -10,7 +12,7 @@ var color = d3.scale.threshold()
     // .range(["#f2f0f7", "#dadaeb", "#bcbddc", "#9e9ac8", "#756bb1", "#54278f"]);
 
 var dscale = width;
-var dtrans = [width / 2, height / 2];
+var dtrans = [width / 2, (height / 2)];
 
 var projmap = d3.geo.albersUsa()
     .scale(dscale)
