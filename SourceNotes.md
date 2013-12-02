@@ -8,6 +8,7 @@ Map Learning Tutes:
 * [click-to-zoom via transform](http://bl.ocks.org/mbostock/2206590)
 * [A simple d3.js map explained](http://www.d3noob.org/2013/03/a-simple-d3js-map-explained.html)
 * [mbostock himself: geopaths](https://github.com/mbostock/d3/wiki/Geo-Paths)
+* [https://github.com/mbostock/us-atlas](https://github.com/mbostock/us-atlas)
 
 
 Data Sources:
