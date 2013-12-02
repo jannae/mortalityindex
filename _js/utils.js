@@ -1,23 +1,32 @@
-// var geons = {};
+function colorLuminance(hex, lum) {
 
-// // this file contains all the geo related objects and functions
-// geons.geoConfig = function() {
-//     this.TRANSLATE_0 = appConstants.TRANSLATE_0;
-//     this.TRANSLATE_1 = appConstants.TRANSLATE_1;
-//     this.SCALE = appConstants.SCALE;
+    // validate hex string
+    hex = String(hex).replace(/[^0-9a-f]/gi, '');
+    if (hex.length < 6) {
+        hex = hex[0]+hex[0]+hex[1]+hex[1]+hex[2]+hex[2];
+    }
+    lum = lum || 0;
 
-//     this.mercator = d3.geo.mercator();
-//     this.path = d3.geo.path().projection(this.mercator);
+    // convert to decimal and change luminosity
+    var rgb = "#", c, i;
+    for (i = 0; i < 3; i++) {
+        c = parseInt(hex.substr(i*2,2), 16);
+        c = Math.round(Math.min(Math.max(0, c + (c * lum)), 255)).toString(16);
+        rgb += ("00"+c).substr(c.length);
+    }
 
-//     this.setupGeo = function() {
-//         var translate = this.mercator.translate();
-//         translate[0] = this.TRANSLATE_0;
-//         translate[1] = this.TRANSLATE_1;
+    return rgb;
+}
 
-//         this.mercator.translate(translate);
-//         this.mercator.scale(this.SCALE);
-//     }
-// }
+function mapToRange(value, srcLow, srcHigh, dstLow, dstHigh){
+  // value is outside source range return fail
+  if (value < srcLow || value > srcHigh){
+    return NaN;
+  }
 
-// // geoConfig contains the configuration for the geo functions
-// geo = new geons.geoConfig();
+  var srcMax = srcHigh - srcLow,
+      dstMax = dstHigh - dstLow,
+      adjValue = value - srcLow;
+
+  return (adjValue * dstMax / srcMax) + dstLow;
+}

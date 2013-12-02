@@ -2,7 +2,12 @@ var width = window.innerWidth,
     height = window.innerHeight,
     centered;
 
-var color = d3.scale.category20b();
+// var color = d3.scale.category20b();
+
+var color = d3.scale.threshold()
+    .domain([0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0])
+    .range(['#FFF7EC', '#FEE8C8', '#FDD49E', '#FDBB84', '#FC8D59', '#EF6548', '#D7301F', '#B30000', '#7F0000']);
+    // .range(["#f2f0f7", "#dadaeb", "#bcbddc", "#9e9ac8", "#756bb1", "#54278f"]);
 
 var dscale = width;
 var dtrans = [width / 2, height / 2];
@@ -27,7 +32,19 @@ svg.append('rect')
 
 var group = svg.append('g');
 
-d3.json('_data/us.json', function(error, us) {
+queue()
+    .defer(d3.json, "_data/us.json")
+    .defer(d3.csv,  "_data/bingedrinkingadults.csv")
+    .await(ready);
+
+function ready(error, us, bingedrinkingadults) {
+    var rateById = {};
+
+    bingedrinkingadults.forEach(function(d) {
+        if (d.dimension == 'total' && d.localeLevel == 'County' && d.timeFrame == '2005-2011'){
+            rateById[d.id] = +d.rate;
+        }});
+
     var counties = topojson.feature(us, us.objects.counties);
     var states = topojson.feature(us, us.objects.states);
 
@@ -54,6 +71,11 @@ d3.json('_data/us.json', function(error, us) {
         .attr('d', path)
         .attr('class', 'county')
         .attr('id', function(d){ return d.id; })
+        .style('fill', function(d) { return color(rateById[d.id]); })
+            //return colorize(rateById[d.id]);})
+            //return 'rgba(200,25,100,'+1.00-rateById[d.id]+')'; })
+            // return colorLuminance('#F2',10*rateById[d.id]);} )
+        .html([function(d) {return d.rate;}])
         .on('click', clicked);
 
     group.append('path')
@@ -67,10 +89,12 @@ d3.json('_data/us.json', function(error, us) {
         .attr('class','borders')
         .attr('id', 'state-borders')
         .attr('d', path);
-});
+}
 
-function colorize(d) {
-
+function colorize(value) {
+    var val = mapToRange(value, 0, 1, 0, 200);
+        val = Math.round(val);
+    return 'rgb('+val+','+val+','+val+')';
 }
 
 function clicked(d) {
