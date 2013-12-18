@@ -1,0 +1,58 @@
+{
+    "allAvgsAvg": 2.9292420338909713,
+    "d": {
+        "bingeDrinking": {
+            "label": "Binge Drinking",
+            "natMax": 36.1,
+            "natAvg": 11.292484076433118,
+            "natMin": 0.0
+        },
+        "noExercise": {
+            "label": "Little to No Exercise",
+            "natMax": 49.1,
+            "natAvg": 20.594171974522297,
+            "natMin": 0.0
+        },
+        "excessDrinking": {
+            "label": "Excessive Drinking",
+            "natMax": 36.8,
+            "natAvg": 12.093917197452251,
+            "natMin": 0.0
+        },
+        "phyisicianUseDelay": {
+            "label": "Delay Seeing a Doctor",
+            "natMax": 33.5,
+            "natAvg": 11.751464968152861,
+            "natMin": 0.0
+        },
+        "poorHealth": {
+            "label": "Fair or Poor Health",
+            "natMax": 42.8,
+            "natAvg": 15.06614649681528,
+            "natMin": 0.0
+        },
+        "totAvg": {
+            "label": "Death Wish Quotient",
+            "natMax": 15.989961783439487,
+            "natAvg": 2.9292420338909713,
+            "natMin": -15.729777070063687
+        },
+        "smoking": {
+            "label": "Smoking",
+            "natMax": 47.8,
+            "natAvg": 16.529777070063687,
+            "natMin": 0.0
+        },
+        "obesity": {
+            "label": "Obesity",
+            "natMax": 48.6,
+            "natAvg": 22.008630573248443,
+            "natMin": 0.0
+        }
+    },
+    "allAvgsMax": 15.989961783439487,
+    "timeFrame": "2005-2011",
+    "allAvgsMin": -15.729777070063687,
+    "totResults": 3140,
+    "dimension": "Total"
+}

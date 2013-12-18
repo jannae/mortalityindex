@@ -10,37 +10,57 @@
 </head>
 
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top" id="topNav" role="navigation">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#">Project name</a>
-            </div>
-            <div class="collapse navbar-collapse">
-                <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">Home</a>
-                    </li>
-                    <li><a href="#about">About</a>
-                    </li>
-                    <li><a href="#contact">Contact</a>
-                    </li>
-                </ul>
-            </div><!--/.nav-collapse -->
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-default" id="topNav" role="navigation">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Brand</a>
         </div>
-    </div>
-    <div id="main"></div><!-- /#main -->
+  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+    <ul class="nav navbar-nav" id="navMenuLeft"></ul>
+  </div><!-- /.navbar-collapse -->
+</nav><!-- /#topNav -->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10" id="gridLeft">
+              <div id="map-container">
+                  <div id="map-main"></div><!-- /#map-main -->
+              </div><!-- /#map-container -->
+            </div><!--/span-->
+
+            <div class="col-md-2" id="legend">
+                <div id="key-container">
+                    <div class="key-heading">
+                        <h3 class="key-title">Legend</h3>
+                    </div>
+                    <div class="key-body" id="key-main"></div><!-- /#key-main -->
+                </div><!-- /#key-container -->
+                <div id="county-data">
+                  <div class="key-heading">
+                        <h3>County data</h3>
+                        <p>Mouseover map for detail</p>
+                    </div>
+                    <div class="key-body" id="county-main">
+                      <div id="county-info"></div>
+                      <div id="county-chart"></div>
+                    </div>
+                </div>
+            </div><!--/span-->
+        </div><!-- /.row -->
+
+    </div><!-- /.container -->
 
     <script type="text/javascript" src="_libs/jquery-2.0.3.js"></script>
     <script type="text/javascript" src="_twbs/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="_libs/d3.v3.js"></script>
     <script type="text/javascript" src="_libs/queue.v1.js"></script>
     <script type="text/javascript" src="_libs/topojson.v1.js"></script>
-    <script type="text/javascript" src="_libs/dat.gui.js"></script>
+    <script type="text/javascript" src="_libs/spin.min.js"></script>
     <script type="text/javascript" src="_js/utils.js"></script>
     <script type="text/javascript" src="_js/main.js"></script>
 </body>
