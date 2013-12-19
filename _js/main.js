@@ -116,10 +116,17 @@ function showData(dFilter) {
     });
 
     console.log(minVal + ', ' + maxVal);
-    color = d3.scale.linear()
-        .domain([minVal, maxVal])
-        .range(["white", "steelblue"])
-        .interpolate(d3.interpolateLab);
+    if (minVal<0) {
+        color = d3.scale.linear()
+            .domain([minVal, 0, maxVal])
+            .range(["red", "white", "steelblue"])
+            .interpolate(d3.interpolateLab);
+    } else {
+        color = d3.scale.linear()
+            .domain([minVal, maxVal])
+            .range(["white", "steelblue"])
+            .interpolate(d3.interpolateLab);
+    }
 
     quantize = d3.scale.quantile()
         .domain([minVal, maxVal])

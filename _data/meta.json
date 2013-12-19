@@ -1,58 +1,116 @@
 {
-    "allAvgsAvg": 2.9292420338909713,
+    "allAvgsAvg": -0.0011766923496418576, 
+    "allAvgsMax": 20.113067338174385, 
+    "allAvgsMin": -13.375061361825615, 
     "d": {
         "bingeDrinking": {
-            "label": "Binge Drinking",
-            "natMax": 36.1,
-            "natAvg": 11.292484076433118,
-            "natMin": 0.0
-        },
-        "noExercise": {
-            "label": "Little to No Exercise",
-            "natMax": 49.1,
-            "natAvg": 20.594171974522297,
-            "natMin": 0.0
-        },
+            "color": "PRGn", 
+            "description": "Respondents aged >=18 years who report having 5 or more drinks (men) or 4 or more drinks (women) on one or more occasions during the previous 30 days. (2005-2011)", 
+            "label": "Binge Drinking", 
+            "natAvg": 11.292484076433107, 
+            "natMax": 36.1, 
+            "natMin": 0.0, 
+            "question": "Considering all types of alcoholic beverages, how many times during the past 30 days did you have [5 for men, 4 for women] or more drinks on an occasion?", 
+            "sources": "Behavioral Risk Factor Surveillance System (BRFSS) (CDC/PHSPO)"
+        }, 
         "excessDrinking": {
-            "label": "Excessive Drinking",
-            "natMax": 36.8,
-            "natAvg": 12.093917197452251,
-            "natMin": 0.0
-        },
-        "phyisicianUseDelay": {
-            "label": "Delay Seeing a Doctor",
-            "natMax": 33.5,
-            "natAvg": 11.751464968152861,
-            "natMin": 0.0
-        },
-        "poorHealth": {
-            "label": "Fair or Poor Health",
-            "natMax": 42.8,
-            "natAvg": 15.06614649681528,
-            "natMin": 0.0
-        },
-        "totAvg": {
-            "label": "Death Wish Quotient",
-            "natMax": 15.989961783439487,
-            "natAvg": 2.9292420338909713,
-            "natMin": -15.729777070063687
-        },
-        "smoking": {
-            "label": "Smoking",
-            "natMax": 47.8,
-            "natAvg": 16.529777070063687,
-            "natMin": 0.0
-        },
+            "color": "PiYG", 
+            "description": "Sample respondents age 18+ who drank more than two drinks per day on average (for men) or more than one drink per day on average (for women) or who drank 5 or more drinks during a single occasion (for men) or 4 or more drinks (for women) during a single occasion.", 
+            "label": "Excessive Drinking", 
+            "natAvg": 12.093917197452239, 
+            "natMax": 36.8, 
+            "natMin": 0.0, 
+            "question": "One drink is equivalent to a 12-ounce beer, a 5-ounce glass of wine, or a drink with one shot of liquor. During the past 30 days, on the days when you drank, about how many drinks did you drink on the average?", 
+            "sources": "Behavioral Risk Factor Surveillance System (BRFSS) (CDC/PHSPO)"
+        }, 
+        "firearmDeaths": {
+            "color": "RdBu", 
+            "description": "Violence-related Firearm Death Rates per 100,000 pop. (2004-2010)", 
+            "label": "Firearm Deaths", 
+            "natAvg": 6.283527592104432, 
+            "natMax": 73.6048967, 
+            "natMin": 0.0, 
+            "question": "Firearm Deaths", 
+            "sources": "Centers for Disease Control and Prevention, National Center for Injury Prevention and Control, Statistics, Programming and Economics Branch"
+        }, 
+        "noExercise": {
+            "color": "RdGy", 
+            "description": "Respondents age 18+ who report no exercise in past month.", 
+            "label": "No Exercise", 
+            "natAvg": 20.5941719745223, 
+            "natMax": 49.1, 
+            "natMin": 0.0, 
+            "question": "During the past month, other than your regular job, did you participate in any physical activities or exercises such as running, calisthenics, golf, gardening, or walking for exercise?", 
+            "sources": "Behavioral Risk Factor Surveillance System (BRFSS) (CDC/PHSPO)"
+        }, 
+        "nonFirearmDeaths": {
+            "color": "Reds", 
+            "description": "Non-Firearm Violence-related Firearm Death Rates per 100,000 pop. (2004-2010)", 
+            "label": "Non-Firearm Deaths", 
+            "natAvg": 2.9564490834765995, 
+            "natMax": 94.03733629999999, 
+            "natMin": 0.0, 
+            "question": "Non-Firearm Deaths", 
+            "sources": "Centers for Disease Control and Prevention, National Center for Injury Prevention and Control, Statistics, Programming and Economics Branch"
+        }, 
         "obesity": {
-            "label": "Obesity",
-            "natMax": 48.6,
-            "natAvg": 22.008630573248443,
-            "natMin": 0.0
+            "color": "Oranges", 
+            "description": "Respondents aged >=18 years who have a body mass index (BMI) >=30.0 kg/m^2 calculated from self-reported weight and height", 
+            "label": "Obesity", 
+            "natAvg": 22.00863057324839, 
+            "natMax": 48.6, 
+            "natMin": 0.0, 
+            "question": "About how much do you weigh without shoes? (and) About how tall are you without shoes?", 
+            "sources": "Behavioral Risk Factor Surveillance System (BRFSS) (CDC/PHSPO)"
+        }, 
+        "phyisicianUseDelay": {
+            "color": "Purples", 
+            "description": "Sample respondents aged 18 years and over who needed to see a doctor but could not because of cost in the past 12 months", 
+            "label": "Delay Seeing a Doctor", 
+            "natAvg": 11.751464968152893, 
+            "natMax": 33.5, 
+            "natMin": 0.0, 
+            "question": "Was there a time in the past 12 months when you needed to see a doctor but could not because of cost?", 
+            "sources": "Behavioral Risk Factor Surveillance System (BRFSS) (CDC/PHSPO)"
+        }, 
+        "poorHealth": {
+            "color": "PuOr", 
+            "description": "Sample respondents age 18+ with self-reported fair or poor health status.", 
+            "label": "Fair or Poor Health", 
+            "natAvg": 15.066146496815286, 
+            "natMax": 42.8, 
+            "natMin": 0.0, 
+            "question": "Would you say that in general your health is: Excellent, Very good, Good, Fair, Or Poor?", 
+            "sources": "Behavioral Risk Factor Surveillance System (BRFSS) (CDC/PHSPO)"
+        }, 
+        "smoking": {
+            "color": "BrBg", 
+            "description": "Sample respondents age 18+ who report smoking cigarettes all or some days. (2005-2011)", 
+            "label": "Smoking", 
+            "natAvg": 16.529777070063677, 
+            "natMax": 47.8, 
+            "natMin": 0.0, 
+            "question": "Do you now smoke cigarettes every day, some days, or not at all?)", 
+            "sources": "Behavioral Risk Factor Surveillance System (BRFSS) (CDC/PHSPO)"
+        }, 
+        "socEmoSupport": {
+            "color": "Greens", 
+            "description": "Sample respondents age 18+ who report inadequate emotional support", 
+            "label": "Social-Emotional Support Lacking", 
+            "natAvg": 15.174044585987238, 
+            "natMax": 57.4, 
+            "natMin": 0.0, 
+            "question": "Social-Emotional Support Lacking", 
+            "sources": "Behavioral Risk Factor Surveillance System (BRFSS) (CDC/PHSPO)"
+        }, 
+        "totAvg": {
+            "label": "Death Wish Quotient", 
+            "natAvg": -0.0011766923496418576, 
+            "natMax": 20.113067338174385, 
+            "natMin": -13.375061361825615
         }
-    },
-    "allAvgsMax": 15.989961783439487,
-    "timeFrame": "2005-2011",
-    "allAvgsMin": -15.729777070063687,
-    "totResults": 3140,
-    "dimension": "Total"
+    }, 
+    "dimension": "Total", 
+    "timeFrame": "2005-2011", 
+    "totResults": 3141
 }
