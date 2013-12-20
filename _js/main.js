@@ -15,7 +15,7 @@ var x, y, xAxis, yAxis, barChart, mgn, cW, cH;
 
 var hash = ((!window.location.hash) ? 'totAvg' : document.URL.substr(document.URL.indexOf('#') + 1));
 
-var dscale = width;// * 1.1;
+var dscale = width; // * 1.1;
 var dtrans = [width / 2, height / 2];
 
 var projmap = d3.geo.albersUsa()
@@ -68,7 +68,7 @@ function prepare() {
             return d.id;
         })
         .on('click', clicked)
-        .on('mouseover', showCountyDataD3)
+        .on('mouseover', showCountyData)
         .on('mouseout', hideCountyData);
 
     var countyborders = topojson.mesh(us, us.objects.counties,
@@ -198,8 +198,11 @@ function makeKey() {
 }
 
 function showCountyData(d) {
+    showCountyBarChart(d);
+
     var nm = brfss[d.id].countyName;
-    var st = brfss[d.id].stateAbb;
+    var st = brfss[d.id].state;
+    var pop = numCommas(brfss[d.id].population);
 
     var stats = brfss[d.id]['d'];
 
@@ -209,14 +212,15 @@ function showCountyData(d) {
     $.each(stats, function(k, v) {
         var num = (v.rate).toFixed(2);
         // if (num > 0) {
-            countyRates += '<li><b>'+k+'</b>: '+num+'%</li>';
+        countyRates += '<li><b>' + k + '</b>: ' + num + '%</li>';
         // }
     });
 
-    $('#county-info').html('<h4>' + nm + ', ' + st + '</h4>\n<ul>' + countyRates + '</ul>');
+    $('#county-info h4').html(nm + ' County, ' + st);
+    $('#county-info p').html('<strong>Population:</strong> '+pop);
 }
 
-function showCountyDataD3(d) {
+function showCountyBarChart(d) {
     barChart.selectAll('g').remove();
     var nm = brfss[d.id].countyName;
     var st = brfss[d.id].stateAbb;
@@ -225,38 +229,38 @@ function showCountyDataD3(d) {
     // var stats = brfss[d.id]['d'];
     var data = [];
 
-    $.each(stats, function(k,v){
+    $.each(stats, function(k, v) {
         var loop = {}
         // loop.id = k;
-        loop.label= meta['d'][k].label;
-        loop.rate = v.rate;
+        loop.label = meta['d'][k].label;
+        loop.rate = v.rate / 100
+        loop.color = meta['d'][k].color;
+        loop.natAvg = meta['d'][k].natAvg / 100;
         data.push(loop);
     })
 
     x = d3.scale.ordinal()
         .rangeRoundBands([0, cW], .1);
 
-    y = d3.scale.linear()
-        .range([cH, 0]);
-
 
     xAxis = d3.svg.axis()
         .scale(x)
         .orient("bottom");
 
-    yAxis = d3.svg.axis()
-        .scale(y)
-        .orient("left")
-        .ticks(6, "%");
 
-
-    x.domain(data.map(function(d) { console.log(); return d.label; }));
+    x.domain(data.map(function(d) {
+        return d.label;
+    }));
     y.domain([0, 1]);
 
     xA = barChart.append('g')
         .attr('class', 'x axis')
         .attr('transform', 'translate(0,' + cH + ')')
         .call(xAxis);
+
+    barChart.selectAll('.bar').remove();
+    barChart.selectAll('.line').remove();
+    barChart.selectAll('.barlabels').remove();
 
 
     barChart.append('g')
@@ -269,46 +273,109 @@ function showCountyDataD3(d) {
         .style('text-anchor', 'end')
         .text('Rate');
 
-    barChart.selectAll('.bar').remove();
-
     barChart.selectAll('.x')
         .selectAll("text")
-        // .attr('transform', 'rotate(-60, 0, 40)');
+    // .attr('transform', 'rotate(-60, 0, 40)');
         .style("text-anchor", "end")
-            .attr("dx", "-.8em")
-            .attr("dy", ".15em")
-            .attr("transform", function(d) {
-                return "rotate(-60,0,0)"
-                });
+        .attr("dx", "-.8em")
+        .attr("dy", ".15em")
+        .attr("transform", function(d) {
+            return "rotate(-60,0,0)"
+        });
 
     barChart.selectAll(".bar")
         .data(data)
         .enter().append("rect")
         .attr("class", "bar")
-        .attr("x", function(d) { return x(d.label); })
+        .attr("x", function(d) {
+            return x(d.label);
+        })
         .attr("width", x.rangeBand())
-        .attr("y", function(d) { return y(d.rate/100); })
-        .attr("height", function(d) { return cH - y(d.rate/100); });
+        .attr("y", function(d) {
+            return y(d.rate);
+        })
+        .attr("height", function(d) {
+            return cH - y(d.rate);
+        });
+
+    barChart.selectAll(".line")
+        .data(data)
+        .enter().append("line")
+        .attr("class", "line")
+        .attr("x1", function(d) {
+            return x(d.label) - 1;
+        })
+        .attr("y1", function(d) {
+            return y(d.natAvg);
+        })
+        .attr("x2", function(d) {
+            return x(d.label) + x.rangeBand() + 1;
+        })
+        .attr("y2", function(d) {
+            return y(d.natAvg);
+        })
+        .attr("stroke-width", 1)
+        .attr("stroke", "purple");
+
+    barChart.selectAll('.barlabels')
+        .data(data)
+        .enter().append('text')
+        .attr("class", "barlabels small text-muted axis")
+        .attr("x", function(d) {
+            return x(d.label);
+        })
+        .attr("y", function(d) {
+            return y(d.rate)-5;
+        })
+        // .append('small')
+        .text(function(d) {
+            return (d.rate*100).toFixed(1);
+        });
 }
 
 function makeBarChart() {
-    mgn = {top: 20, right: 20, bottom: 30, left: 40};
+    mgn = {
+        top: 20,
+        right: 20,
+        bottom: 30,
+        left: 40
+    };
     cW = $('#county-chart').width() - mgn.left - mgn.right;
     cH = 150 - mgn.top - mgn.bottom;
 
     barChart = d3.select("#county-chart")
         .append("svg")
         .attr('width', cW + mgn.left + mgn.right)
-        .attr('height', cH + mgn.top + mgn.bottom+125)
+        .attr('height', cH + mgn.top + mgn.bottom + 125)
         .append('g')
         .attr('transform', 'translate(' + mgn.left + ',' + mgn.top + ')');
+
+    y = d3.scale.linear()
+        .range([cH, 0]);
+
+    yAxis = d3.svg.axis()
+        .scale(y)
+        .orient("left")
+        .ticks(6, "%");
+
+    barChart.append('g')
+        .attr('class', 'y axis')
+        .call(yAxis)
+        .append('text')
+        .attr('transform', 'rotate(-90)')
+        .attr('y', 6)
+        .attr('dy', '.71em')
+        .style('text-anchor', 'end')
+        .text('Rate');
 
 
 }
 
 function hideCountyData(d) {
-    barChart.selectAll('.bar').remove();
-    $('#county-info').html('');
+    // $('#county-info').html('');
+    // barChart.selectAll('.bar').remove();
+    // barChart.selectAll('.line').remove();
+    // barChart.selectAll('.barlabels').remove();
 }
 
 function ready(error, usData, naData, metaData, brfssData) {
@@ -377,7 +444,7 @@ function makeHeader() {
     var metaD = meta.d[dataFilter];
     $('#hdrTitle h2').html(metaD.label);
     $('#desc').html(metaD.description);
-    $('#ques').html('<em>'+metaD.question+'</em>');
+    $('#ques').html('<em>' + metaD.question + '</em>');
 }
 
 $('ul#navDropdownLeft').on('click', 'li', function() {
@@ -385,7 +452,7 @@ $('ul#navDropdownLeft').on('click', 'li', function() {
     // add class to the one we clicked
     $(this).addClass("active");
     var navLab = $(this).text();
-    $('#navDropdownTitle').html(navLab+' <b class="caret"></b>');
+    $('#navDropdownTitle').html(navLab + ' <b class="caret"></b>');
     showData(this.id);
 });
 

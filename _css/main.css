@@ -52,14 +52,17 @@
     fill: steelblue;
 }
 .bar:hover {
-    fill: brown;
+    fill: orange;
+}
+.barlabels {
+    margin-bottom: 5px;
 }
 .axis {
     font: 10px sans-serif;
 }
 .axis path, .axis line {
     fill: none;
-    stroke: #000;
+    stroke: #666;
     shape-rendering: crispEdges;
 }
 .x.axis path {
@@ -67,6 +70,9 @@
 }
 #key-container {
     margin:20px 0;
+}
+#county-chart {
+    border: 1px solid #ddd;
 }
 .key-heading {
 }

@@ -36,3 +36,7 @@ function colorize(value) {
     val = Math.round(val);
     return 'rgb(' + val + ',' + val + ',' + val + ')';
 }
+
+function numCommas(x) {
+    return x.toString().replace(/\B(?=(?:\d{3})+(?!\d))/g, ",");
+}
