@@ -2,7 +2,18 @@ import csv
 import json
 import codecs
 
-brfsscsv = csv.DictReader(open('brfss.csv','rU'))
+brfsscsv = csv.DictReader(open('brfss-adj.csv','rU'))
+
+def mapVal(value, srcLow, srcHigh, dstLow, dstHigh):
+    # value is outside source range return fail
+    if value < srcLow or value > srcHigh:
+        return 0
+
+    srcMax = srcHigh - srcLow
+    dstMax = dstHigh - dstLow
+    adjValue = value - srcLow
+
+    return (adjValue * dstMax / srcMax) + dstLow
 
 brfss = {}
 meta = {'d':{}}
@@ -18,35 +29,35 @@ labels = {
     'socEmoSupport': 'Social-Emotional Support Lacking',
     'firearmDeaths': 'Firearm Deaths',
     'nonFirearmDeaths': 'Non-Firearm Deaths',
-    'totAvg': 'Death Wish Quotient'
+    'totAvg': 'Mortality Attitude Index'
 }
 
 quest = {
     'bingeDrinking': 'Considering all types of alcoholic beverages, how many times during the past 30 days did you have [5 for men, 4 for women] or more drinks on an occasion?',
-    'smoking': 'Do you now smoke cigarettes every day, some days, or not at all?)',
+    'smoking': 'Do you now smoke cigarettes every day, some days, or not at all?',
     'excessDrinking': 'One drink is equivalent to a 12-ounce beer, a 5-ounce glass of wine, or a drink with one shot of liquor. During the past 30 days, on the days when you drank, about how many drinks did you drink on the average?',
     'poorHealth': 'Would you say that in general your health is: Excellent, Very good, Good, Fair, Or Poor?',
     'noExercise': 'During the past month, other than your regular job, did you participate in any physical activities or exercises such as running, calisthenics, golf, gardening, or walking for exercise?',
     'obesity': 'About how much do you weigh without shoes? (and) About how tall are you without shoes?',
     'phyisicianUseDelay': 'Was there a time in the past 12 months when you needed to see a doctor but could not because of cost?',
     'socEmoSupport': 'Social-Emotional Support Lacking',
-    'firearmDeaths': 'Firearm Deaths',
-    'nonFirearmDeaths': 'Non-Firearm Deaths',
-    'totAvg': 'Death Wish Quotient'
+    'firearmDeaths': '',
+    'nonFirearmDeaths': '',
+    'totAvg': 'A high number indicates a low value of life, a low number indicates a high value.'
 }
 
 descs = {
-    'bingeDrinking': 'Respondents aged >=18 years who report having 5 or more drinks (men) or 4 or more drinks (women) on one or more occasions during the previous 30 days. (2005-2011)',
-    'smoking': 'Sample respondents age 18+ who report smoking cigarettes all or some days. (2005-2011)',
-    'excessDrinking': 'Sample respondents age 18+ who drank more than two drinks per day on average (for men) or more than one drink per day on average (for women) or who drank 5 or more drinks during a single occasion (for men) or 4 or more drinks (for women) during a single occasion.',
-    'poorHealth': 'Sample respondents age 18+ with self-reported fair or poor health status.',
-    'noExercise': 'Respondents age 18+ who report no exercise in past month.',
-    'obesity': 'Respondents aged >=18 years who have a body mass index (BMI) >=30.0 kg/m^2 calculated from self-reported weight and height',
-    'phyisicianUseDelay': 'Sample respondents aged 18 years and over who needed to see a doctor but could not because of cost in the past 12 months',
-    'socEmoSupport': 'Sample respondents age 18+ who report inadequate emotional support',
+    'bingeDrinking': 'Respondents who report having 5+ (men) or 4+ (women) drinks on one or more occasions during the previous 30 days. (2005-2011)',
+    'smoking': 'Respondents who report smoking cigarettes all or some days. (2005-2011)',
+    'excessDrinking': 'Respondents who drank >2 (men) or >1 (women) drinks per day on average or who drank 5+ (men) or 4+ (women) drinks during a single occasion. (2005-2011)',
+    'poorHealth': 'Respondents with self-reported fair or poor health status. (2005-2011)',
+    'noExercise': 'Respondents who report no exercise in past month. (2005-2011)',
+    'obesity': 'Respondents aged 18+ years who have a body mass index (BMI) >=30.0 kg/m<sup>2</sup> calculated from self-reported weight and height. (2005-2011)',
+    'phyisicianUseDelay': 'Respondents who needed to see a doctor but could not because of cost in the past 12 months. (2005-2011)',
+    'socEmoSupport': 'Respondents who report inadequate emotional support. (2005-2011)',
     'firearmDeaths': 'Violence-related Firearm Death Rates per 100,000 pop. (2004-2010)',
     'nonFirearmDeaths': 'Non-Firearm Violence-related Firearm Death Rates per 100,000 pop. (2004-2010)',
-    'totAvg': 'Death Wish Quotient'
+    'totAvg': 'Data derived from collecting all of the non-undefined risk factor indices, and creating an "average" index of basic societal attitudes towards risk factors and preventative mortality risks.'
 }
 
 sources = {
@@ -60,21 +71,21 @@ sources = {
     'socEmoSupport': 'Behavioral Risk Factor Surveillance System (BRFSS) (CDC/PHSPO)',
     'firearmDeaths': 'Centers for Disease Control and Prevention, National Center for Injury Prevention and Control, Statistics, Programming and Economics Branch',
     'nonFirearmDeaths': 'Centers for Disease Control and Prevention, National Center for Injury Prevention and Control, Statistics, Programming and Economics Branch',
-    'totAvg': 'Death Wish Quotient'
+    'totAvg': 'Various BRFSS/CDC/PHSPO'
 }
 
 colors = {
-    'bingeDrinking': 'PRGn',
-    'smoking': 'BrBg',
-    'excessDrinking': 'PiYG',
-    'poorHealth': 'PuOr',
-    'noExercise': 'RdGy',
-    'obesity': 'Oranges',
-    'phyisicianUseDelay': 'Purples',
-    'socEmoSupport': 'Greens',
-    'firearmDeaths': 'RdBu',
-    'nonFirearmDeaths': 'Reds',
-    'totAvg': 'Spectral'
+    'bingeDrinking': 'steelblue',
+    'smoking': 'brown',
+    'excessDrinking': 'darkorange',
+    'poorHealth': 'green',
+    'noExercise': 'darkgreen',
+    'obesity': 'brown',
+    'phyisicianUseDelay': 'purple',
+    'socEmoSupport': 'blue',
+    'firearmDeaths': 'red',
+    'nonFirearmDeaths': 'maroon',
+    'totAvg': 'darkblue'
 }
 
 for row in brfsscsv:
@@ -109,6 +120,12 @@ for row in brfsscsv:
     if valMissing:
         brfss[key]['d'][statfile].update({'valMissing': valMissing})
 
+    if popu:
+        brfss[key].update({'population': popu})
+
+    if deaths:
+        brfss[key]['d'][statfile].update({'deaths': deaths})
+
 scores = meta['d']
 
 for k in scores:
@@ -131,8 +148,10 @@ for r in brfss:
     for s in brfss[r]['d']:
         natAvg = scores[s]['natAvg']
         dRate = brfss[r]['d'][s]['rate']
-        # if 'valMissing' not in brfss[r]['d'][s]:
-        vsNat = dRate-natAvg
+        if 'valMissing' not in brfss[r]['d'][s]:
+            vsNat = dRate-natAvg
+        else:
+            vsNat = 0
         avgs.append(vsNat)
         brfss[r]['d'][s].update({'vsNatAvg': vsNat})
     if len(avgs) > 0:
@@ -141,19 +160,34 @@ for r in brfss:
         allAvgs.append(totAvg)
     brfss[r].update({'lenAvg': len(avgs)})
 
-scores.update({'totAvg': {'label':labels['totAvg']}})
-
 allAvgsMax = max(allAvgs)
 allAvgsMin = min(allAvgs)
-allAvgsAvg = reduce(lambda x, y: x + y, allAvgs) / len(allAvgs)
+# allAvgsAvg = reduce(lambda x, y: x + y, allAvgs) / len(allAvgs)
 totResults = len(brfss)
 
-meta.update({'allAvgsMin': allAvgsMin, 'allAvgsMax': allAvgsMax, 'allAvgsAvg': allAvgsAvg, 'totResults': totResults})
+adjMin = 0
+adjMax = abs(allAvgsMin)+abs(allAvgsMax)
 
-scores.update({'totAvg': {'natAvg': allAvgsAvg, 'natMin': allAvgsMin, 'natMax': allAvgsMax, 'label':labels['totAvg']}})
+for r in brfss:
+    adjRate = brfss[r]['d']['totAvg']['rate']
+    if adjRate != 0:
+        adjRate = mapVal(adjRate,allAvgsMin,allAvgsMax,adjMin,adjMax)
+        brfss[r]['d']['totAvg']['rate'] = adjRate
+    else:
+        brfss[r]['d']['totAvg'].update({'valMissing': 'Y'})
+    allAvgs.append(adjRate)
+
+allAvgsAvg = reduce(lambda x, y: x + y, allAvgs) / len(allAvgs)
+
+meta.update({'allAvgsMin': adjMin, 'allAvgsMax': adjMax, 'allAvgsAvg': allAvgsAvg, 'totResults': totResults})
+
+scores.update({'totAvg': {'natAvg': allAvgsAvg, 'natMin': adjMin, 'natMax': adjMax, 'label': labels['totAvg'], 'question': quest['totAvg'], 'description' :descs['totAvg'], 'sources':sources['totAvg'],'color':colors['totAvg']}})
 
 metaout = codecs.open('meta.json', 'w', encoding='utf-8')
 json.dump(meta, metaout, indent=4, sort_keys=True, ensure_ascii=False)
 
 brfssout = codecs.open('brfss.json', 'w', encoding='utf-8')
 json.dump(brfss, brfssout, indent=4, sort_keys=True, ensure_ascii=False)
+
+
+

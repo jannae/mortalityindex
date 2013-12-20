@@ -1,19 +1,21 @@
-var topNav = document.getElementById('topNav').offsetHeight;
+var topNav = $('#topNav').outerHeight(true);
+var hdrTitle = $('#hdrTitle').outerHeight(true);
 
-var width = document.getElementById('map-container').offsetWidth,
-    height = window.innerHeight - topNav,
+var width = $('#map-container').outerWidth(true),
+    keywidth = $('#legend').outerWidth(true),
+    height = $(window).height() - topNav - hdrTitle,
     centered,
     quantize,
     color;
 
-var x, y, xAxis, yAxis, barChart;
+var maxVal,
+    minVal;
 
-var hash = ((!window.location.hash) ? 'bingeDrinking' : document.URL.substr(document.URL.indexOf('#') + 1));
-// var color = d3.scale.category20b();
+var x, y, xAxis, yAxis, barChart, mgn, cW, cH;
 
-// .range(["#f2f0f7", "#dadaeb", "#bcbddc", "#9e9ac8", "#756bb1", "#54278f"]);
+var hash = ((!window.location.hash) ? 'totAvg' : document.URL.substr(document.URL.indexOf('#') + 1));
 
-var dscale = width * 1.2;
+var dscale = width;// * 1.1;
 var dtrans = [width / 2, height / 2];
 
 var projmap = d3.geo.albersUsa()
@@ -26,11 +28,14 @@ var path = d3.geo.path()
 var usSvg = d3.select('#map-main').append('svg')
     .attr('width', width)
     .attr('height', height);
-// .call(d3.behavior.zoom().on('zoom', redraw));
 
 var group = usSvg.append('g');
 
-var keySvg = d3.select("#key-main").append("svg").attr('height', 310);
+var keyblock = d3.select("#key-container")
+    .append("div")
+    .attr('id', 'key-main')
+    .attr('height', 100)
+    .attr('width', keywidth);
 
 queue()
     .defer(d3.json, "_data/us.json")
@@ -46,7 +51,8 @@ var us,
 
 function prepare() {
     makeNav();
-    makeBarChart()
+    makeBarChart();
+
     var counties = topojson.feature(us, us.objects.counties);
     var states = topojson.feature(us, us.objects.states);
     var namerica = topojson.feature(na, na.objects.newamerica);
@@ -62,7 +68,7 @@ function prepare() {
             return d.id;
         })
         .on('click', clicked)
-        .on('mouseover', showCountyData)
+        .on('mouseover', showCountyDataD3)
         .on('mouseout', hideCountyData);
 
     var countyborders = topojson.mesh(us, us.objects.counties,
@@ -79,6 +85,8 @@ function prepare() {
             return a !== b;
         });
 
+    var usborders = topojson.mesh(us, us.objects.land);
+
     group.append('path')
         .datum(countyborders)
         .attr('class', 'borders')
@@ -89,13 +97,22 @@ function prepare() {
         .datum(stateborders)
         .attr('class', 'borders')
         .attr('id', 'state-borders')
-        .attr('d', path);
+        .attr('d', path)
+        .style('stroke-width', '1px');
 
     group.append('path')
         .datum(namericaborders)
         .attr('class', 'borders')
         .attr('id', 'new-borders')
-        .attr('d', path);
+        .attr('d', path)
+        .style('stroke-width', '1px');
+
+    group.append('path')
+        .datum(usborders)
+        .attr('class', 'borders')
+        .attr('id', 'us-borders')
+        .attr('d', path)
+        .style('stroke-width', '1px');
 }
 
 function showData(dFilter) {
@@ -103,30 +120,24 @@ function showData(dFilter) {
     dataFilter = dFilter;
     var cntyInfo = {};
     var vals = [];
-    var maxVal,
-        minVal;
+
+
+    makeHeader();
 
     $.each(meta, function(k, val) {
         $.each(meta.d, function(k, v) {
             if (k == dFilter) {
                 maxVal = v.natMax;
                 minVal = v.natMin;
+                dColor = v.color;
             }
         });
     });
 
-    console.log(minVal + ', ' + maxVal);
-    if (minVal<0) {
-        color = d3.scale.linear()
-            .domain([minVal, 0, maxVal])
-            .range(["red", "white", "steelblue"])
-            .interpolate(d3.interpolateLab);
-    } else {
-        color = d3.scale.linear()
-            .domain([minVal, maxVal])
-            .range(["white", "steelblue"])
-            .interpolate(d3.interpolateLab);
-    }
+    color = d3.scale.linear()
+        .domain([minVal, maxVal])
+        .range(["white", dColor])
+        .interpolate(d3.interpolateLab);
 
     quantize = d3.scale.quantile()
         .domain([minVal, maxVal])
@@ -141,8 +152,8 @@ function showData(dFilter) {
         });
     });
 
-    var curFill = group.select('g').selectAll('path').style('fill');
-    console.log(curFill);
+    // var curFill = group.select('g').selectAll('path').style('fill');
+    // console.log(curFill);
 
     group.select('g').selectAll('path')
         .transition()
@@ -150,32 +161,40 @@ function showData(dFilter) {
             return color(cntyInfo[d.id]);
         });
 
-    keySvg.select('g').remove();
+    makeKey();
+}
 
-    var keysEnter = keySvg.append('g').selectAll('circle')
-        .data(d3.range(0, 21, 2))
+function makeKey() {
+    keyblock.selectAll('div').remove();
+
+    var keysEnter = keyblock.selectAll('div')
+        .data(d3.range(0, 13, 2))
         .enter();
-    keysEnter.append('circle')
-        .attr('cy', function(d) {
-            return (d + 1) * 14;
-        })
-        .attr('cx', 12)
-        .attr('r', 10)
-        .style('fill', color);
 
-    keysEnter.append('text')
-        .attr('class', 'keyLabel')
-        .attr('y', function(d) {
-            return ((d + 1) * 14) + 5;
-        })
-        .attr('x', 26)
-        .text(function(d) {
-            var keyLabel;
-            if (d == 0) keyLabel = d3.round(minVal || 0, 1);
-            if (d != 0 && d != 20) keyLabel = d3.round(quantize.quantiles()[d], 1);
-            if (d == 20) keyLabel = d3.round(maxVal || 0, 1);
-            return keyLabel;
+    kB = keysEnter.append('div')
+        .attr('class', 'key-block');
+
+    kB.append('div')
+        .attr('class', 'key-color-block')
+        .style('background-color', function(d) {
+            var clrVal;
+            if (d == 0) clrVal = color(d3.round(minVal || 0));
+            if (d != 0 && d != 12) clrVal = color(d3.round(quantize.quantiles()[d]));
+            if (d == 12) clrVal = color(d3.round(maxVal || 0));
+            return clrVal;
         });
+
+    kB.append('small')
+        .attr('class', 'key-value text-center text-muted')
+        .text(function(d) {
+            var keyVal;
+            if (d == 0) keyVal = "N/D*";
+            if (d != 0 && d != 12) keyVal = d3.round(quantize.quantiles()[d]) + '%';
+            if (d == 12) keyVal = d3.round(maxVal || 0) + '%';
+            return keyVal;
+        });
+
+    keyblock.append('div').attr('class', 'clearfix');
 }
 
 function showCountyData(d) {
@@ -187,50 +206,54 @@ function showCountyData(d) {
     var rate = stats[dataFilter].rate;
     var countyRates = "";
 
-    // $.each(meta.d, function(k, v) {
-    //     var num = (stats[k].rate).toFixed(2);
-    //     // // if (num > 0) {
-    //     //     countyRates += '<li><b>'+k+'</b>: '+num+'%</li>';
-    //     // // }
-    // });
-    $.each(meta.d, function(k, v) {
-    // d3.json("_data/meta.json", function(error, data) {
-        // var items = data.d;
-        // console.log(items);
-        x.domain(data.map(function(d) { return d.d; }));
-        y.domain([0, d3.max(data, function(d) {
-            return items.natMax;
-        })]);
-
-        barChart.selectAll(".bar")
-            .data(data)
-            .enter().append("rect")
-            .attr("class", "bar")
-            .attr("x", function(d) {
-                return x(d);
-            })
-            .attr("width", x.rangeBand())
-            .attr("y", function(d) {
-                return y(stats[d].rate);
-            })
-            .attr("height", function(d) {
-                return height - y(stats[d].rate);
-            });
-
+    $.each(stats, function(k, v) {
+        var num = (v.rate).toFixed(2);
+        // if (num > 0) {
+            countyRates += '<li><b>'+k+'</b>: '+num+'%</li>';
+        // }
     });
 
     $('#county-info').html('<h4>' + nm + ', ' + st + '</h4>\n<ul>' + countyRates + '</ul>');
 }
 
+function showCountyDataD3(d) {
+    var nm = brfss[d.id].countyName;
+    var st = brfss[d.id].stateAbb;
+
+    var stats = brfss[d.id]['d'];
+    // var stats = brfss[d.id]['d'];
+    var data = [];
+
+    $.each(stats, function(k,v){
+        var loop = {}
+        loop.label = k;
+        loop.rate = v.rate;
+        data.push(loop);
+    })
+
+    x.domain(data.map(function(d) { return d.label; }));
+    y.domain([0, 100]);
+
+    barChart.selectAll('.bar').remove();
+
+    barChart.selectAll('.x')
+        .selectAll("text")
+        .attr('transform', 'rotate(-60, 0, 0)');
+
+    barChart.selectAll(".bar")
+        .data(data)
+        .enter().append("rect")
+        .attr("class", "bar")
+        .attr("x", function(d) { return x(d.label); })
+        .attr("width", x.rangeBand())
+        .attr("y", function(d) { return y(d.rate); })
+        .attr("height", function(d) { return cH - y(d.rate); });
+}
+
 function makeBarChart() {
-    var mgn = {
-        top: 20,
-        right: 20,
-        bottom: 30,
-        left: 40
-    },
-        cW = $('#county-chart').width() - mgn.left - mgn.right,
-        cH = 250 - mgn.top - mgn.bottom;
+    mgn = {top: 20, right: 20, bottom: 30, left: 40};
+    cW = $('#county-chart').width() - mgn.left - mgn.right;
+    cH = 250 - mgn.top - mgn.bottom;
 
     x = d3.scale.ordinal()
         .rangeRoundBands([0, cW], .1);
@@ -245,7 +268,7 @@ function makeBarChart() {
     yAxis = d3.svg.axis()
         .scale(y)
         .orient("left")
-        .ticks(10, "%");
+        .ticks(6, "%");
 
     barChart = d3.select("#county-chart")
         .append("svg")
@@ -254,10 +277,11 @@ function makeBarChart() {
         .append('g')
         .attr('transform', 'translate(' + mgn.left + ',' + mgn.top + ')');
 
-    barChart.append('g')
+    xA = barChart.append('g')
         .attr('class', 'x axis')
         .attr('transform', 'translate(0,' + cH + ')')
         .call(xAxis);
+
 
     barChart.append('g')
         .attr('class', 'y axis')
@@ -271,6 +295,7 @@ function makeBarChart() {
 }
 
 function hideCountyData(d) {
+    barChart.selectAll('.bar').remove();
     $('#county-info').html('');
 }
 
@@ -282,16 +307,6 @@ function ready(error, usData, naData, metaData, brfssData) {
 
     prepare();
     showData(dataFilter);
-}
-
-function showhideData(d) {
-
-}
-
-function colorize(value) {
-    var val = mapToRange(value, 0, 1, 0, 200);
-    val = Math.round(val);
-    return 'rgb(' + val + ',' + val + ',' + val + ')';
 }
 
 function clicked(d) {
@@ -323,7 +338,6 @@ function clicked(d) {
         .style('stroke-width', 1.5 / k + 'px');
 }
 
-
 function redraw() {
     console.log('redraw scale', d3.event.scale * dscale);
     projmap.scale(d3.event.scale * dscale);
@@ -343,13 +357,38 @@ function makeNav() {
             var active = (k == dataFilter) ? ' class="active"' : '';
             items.push('<li id="' + k + '"' + active + '><a href="#' + k + '">' + v.label + '</a></li>');
         });
-        $("#navMenuLeft").append(items.join(""));
+        $("#navDropdownLeft").append(items.join(""));
     });
 }
 
-$('ul').on('click', 'li', function() {
-    $('#navMenuLeft li').removeClass("active");
+function makeHeader() {
+    var metaD = meta.d[dataFilter];
+    $('#hdrTitle h2').html(metaD.label);
+    $('#desc').html(metaD.description);
+    $('#ques').html('<em>'+metaD.question+'</em>');
+}
+
+$('ul#navDropdownLeft').on('click', 'li', function() {
+    $('#navDropdownLeft li').removeClass("active");
     // add class to the one we clicked
     $(this).addClass("active");
+    var navLab = $(this).text();
+    $('#navDropdownTitle').html(navLab+' <b class="caret"></b>');
     showData(this.id);
 });
+
+
+
+$(".navbar-form input[type='checkbox']").on('click', function() {
+    if (this.checked) {
+        $('#' + this.name).attr('style', 'stroke-width:1.25px');
+    } else {
+        $('#' + this.name).removeAttr('style');
+    }
+});
+
+// #state-borders {
+//     stroke: #00ff00;
+//     stroke-width: 0.5px;
+// }
+// #new-borders

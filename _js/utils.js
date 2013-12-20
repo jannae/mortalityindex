@@ -30,3 +30,9 @@ function mapToRange(value, srcLow, srcHigh, dstLow, dstHigh){
 
   return (adjValue * dstMax / srcMax) + dstLow;
 }
+
+function colorize(value) {
+    var val = mapToRange(value, 0, 1, 0, 200);
+    val = Math.round(val);
+    return 'rgb(' + val + ',' + val + ',' + val + ')';
+}

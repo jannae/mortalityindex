@@ -1,6 +1,17 @@
 .container {
     width: 100%;
 }
+.navbar{ margin-bottom: 15px}
+.navbar-form {
+    border-left: 1px solid #666;
+    border-right: 1px solid #666;
+}
+.navbar-form label {
+    margin-right:10px;
+}
+.page-header {
+    margin:0 0 10px;
+}
 .background {
     fill: none;
     pointer-events: all;
@@ -22,19 +33,21 @@
     stroke-linejoin: round;
     stroke-linecap: round;
     pointer-events: none;
+    stroke-width: 0px;
 }
 #county-borders {
     stroke: #fff;
-    stroke-width: 0.05px;
 }
 #state-borders {
-    stroke: #00ff00;
-    stroke-width: 0.5px;
+    stroke: #00ee00;
 }
 #new-borders {
-    stroke: #ff0000;
-    stroke-width: 0.75px;
+    stroke: #EE0000;
 }
+#us-borders {
+    stroke: #CCC;
+}
+
 .bar {
     fill: steelblue;
 }
@@ -51,4 +64,24 @@
 }
 .x.axis path {
     display: none;
+}
+#key-container {
+    margin:20px 0;
+}
+.key-heading {
+}
+.key-value {
+    padding: 4px;
+}
+.key-block {
+    float: left;
+    width: 13%;
+    margin-right: 1%;
+    /*border-left:1px solid #ddd;*/
+}
+.key-color-block {
+    width: 100%;
+    float: left;
+    height: 10px;
+    background-color: #fff;
 }
