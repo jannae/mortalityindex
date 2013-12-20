@@ -231,7 +231,7 @@ function showCountyBarChart(d) {
 
     $.each(stats, function(k, v) {
         var loop = {}
-        // loop.id = k;
+        loop.id = k;
         loop.label = meta['d'][k].label;
         loop.rate = v.rate / 100
         loop.color = meta['d'][k].color;
@@ -287,6 +287,15 @@ function showCountyBarChart(d) {
         .data(data)
         .enter().append("rect")
         .attr("class", "bar")
+        .attr("fill", function(d) {
+            console.log(d.id+', '+dataFilter+', '+d.color);
+            if (d.id == dataFilter) {
+
+                return d.color;
+            } else {
+                return 'steelblue';
+            }
+        })
         .attr("x", function(d) {
             return x(d.label);
         })
@@ -297,6 +306,7 @@ function showCountyBarChart(d) {
         .attr("height", function(d) {
             return cH - y(d.rate);
         });
+
 
     barChart.selectAll(".line")
         .data(data)
@@ -320,7 +330,7 @@ function showCountyBarChart(d) {
     barChart.selectAll('.barlabels')
         .data(data)
         .enter().append('text')
-        .attr("class", "barlabels small text-muted axis")
+        .attr("class", "barlabels text-muted")
         .attr("x", function(d) {
             return x(d.label);
         })
@@ -329,7 +339,7 @@ function showCountyBarChart(d) {
         })
         // .append('small')
         .text(function(d) {
-            return (d.rate*100).toFixed(1);
+            return (d.rate*100).toFixed(0);
         });
 }
 
