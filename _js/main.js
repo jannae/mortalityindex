@@ -71,6 +71,7 @@ function prepare() {
         .on('mouseover', showCountyData)
         .on('mouseout', hideCountyData);
 
+
     var countyborders = topojson.mesh(us, us.objects.counties,
         function(a, b) {
             return a !== b;
