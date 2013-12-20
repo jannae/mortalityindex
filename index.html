@@ -12,15 +12,9 @@
 <body>
     <!-- Fixed navbar -->
     <nav class="navbar navbar-default" id="topNav" role="navigation">
-        <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-text" href="#"><span class="glyphicon glyphicon-list"></span></a>
+            <a class="navbar-text menu-trigger" href="#menu"><span class="glyphicon glyphicon-list"></span></a>
+
             <a class="navbar-brand" href="#">The Mortality Attitude Index</a>
         </div>
 
@@ -50,6 +44,13 @@
             </form>
         </div>
         <!-- /.navbar-collapse -->
+    </nav>
+    <nav id="slider" class="slideout">
+        <div class="container">
+            <p class="slidehead">About this Project</p>
+            <p>Inspired by <a href="http://www.tufts.edu/alumni/magazine/fall2013/features/up-in-arms.html" target="_blank">this article</a> published Fall 2013 in Tufts University Alumni Magazine, I
+            </p>
+        </div>
     </nav>
     <div class="container">
     <div class="page-header" id="hdrTitle">
@@ -91,11 +92,14 @@
     </div>
     <!-- /.container -->
 
+
+
     <script type="text/javascript" src="_libs/jquery-2.0.3.js"></script>
     <script type="text/javascript" src="_twbs/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="_libs/d3.v3.js"></script>
     <script type="text/javascript" src="_libs/queue.v1.js"></script>
     <script type="text/javascript" src="_libs/topojson.v1.js"></script>
+    <script type="text/javascript" src="_libs/jquery.jpanelmenu.js"></script>
     <script type="text/javascript" src="_js/utils.js"></script>
     <script type="text/javascript" src="_js/main.js"></script>
 </body>

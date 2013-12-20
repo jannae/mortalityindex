@@ -288,7 +288,6 @@ function showCountyBarChart(d) {
         .enter().append("rect")
         .attr("class", "bar")
         .attr("fill", function(d) {
-            console.log(d.id+', '+dataFilter+', '+d.color);
             if (d.id == dataFilter) {
 
                 return d.color;
@@ -466,7 +465,13 @@ $('ul#navDropdownLeft').on('click', 'li', function() {
     showData(this.id);
 });
 
+var jPM = $.jPanelMenu({
+    menu: 'nav#slider',
+    trigger: '.menu-trigger',
+    duration: 300
+});
 
+jPM.on();
 
 $(".navbar-form input[type='checkbox']").on('click', function() {
     if (this.checked) {
@@ -475,9 +480,3 @@ $(".navbar-form input[type='checkbox']").on('click', function() {
         $('#' + this.name).removeAttr('style');
     }
 });
-
-// #state-borders {
-//     stroke: #00ff00;
-//     stroke-width: 0.5px;
-// }
-// #new-borders
