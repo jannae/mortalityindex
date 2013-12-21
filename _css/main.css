@@ -2,7 +2,7 @@
     width: 100%;
 }
 #slideout {
-    background-color: rgba(16, 17, 53, 0.7);
+    background-color: rgba(6, 7, 31, 0.8);
     border-color: #dcdcdc;
 filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffe8e8e8',endColorstr='#fff5f5f5',GradientType=0);
 -webkit-box-shadow: inset 0 1px 3px rgba(0,0,0,0.05),0 1px 0 rgba(255,255,255,0.1);
@@ -15,7 +15,9 @@ color:#ddd;
     font-size:24px;
     border-bottom: 1px solid #bbb;
 }
-
+input[type=checkbox]{
+    margin-right:5px;
+}
 .navbar{ margin-bottom: 15px}
 .navbar-form {
     border-left: 1px solid #666;

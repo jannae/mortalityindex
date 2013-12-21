@@ -15,7 +15,7 @@ var x, y, xAxis, yAxis, barChart, mgn, cW, cH;
 
 var hash = ((!window.location.hash) ? 'totAvg' : document.URL.substr(document.URL.indexOf('#') + 1));
 
-var dscale = width; // * 1.1;
+var dscale = width * 1.2;
 var dtrans = [width / 2, height / 2];
 
 var projmap = d3.geo.albersUsa()
