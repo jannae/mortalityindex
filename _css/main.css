@@ -1,7 +1,7 @@
 .container {
     width: 100%;
 }
-.slideout {
+#slideout {
     background-color: rgba(16, 17, 53, 0.7);
     border-color: #dcdcdc;
 filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffe8e8e8',endColorstr='#fff5f5f5',GradientType=0);
@@ -15,9 +15,7 @@ color:#ddd;
     font-size:24px;
     border-bottom: 1px solid #bbb;
 }
-#slider {
-    display:none
-}
+
 .navbar{ margin-bottom: 15px}
 .navbar-form {
     border-left: 1px solid #666;

@@ -465,13 +465,6 @@ $('ul#navDropdownLeft').on('click', 'li', function() {
     showData(this.id);
 });
 
-var jPM = $.jPanelMenu({
-    menu: 'nav#slider',
-    trigger: '.menu-trigger',
-    duration: 300
-});
-
-jPM.on();
 
 $(".navbar-form input[type='checkbox']").on('click', function() {
     if (this.checked) {
