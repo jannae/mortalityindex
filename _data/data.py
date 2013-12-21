@@ -27,8 +27,8 @@ labels = {
     'obesity': 'Obesity',
     'phyisicianUseDelay': 'Delay Seeing a Doctor',
     'socEmoSupport': 'Social-Emotional Support Lacking',
-    'firearmDeaths': 'Firearm Deaths',
-    'nonFirearmDeaths': 'Non-Firearm Deaths',
+    'firearmDeaths': 'Firearm Violent Deaths',
+    'nonFirearmDeaths': 'Non-Firearm Violent Deaths',
     'totAvg': 'Mortality Attitude Index'
 }
 

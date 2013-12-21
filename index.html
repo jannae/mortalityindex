@@ -5,6 +5,7 @@
 
     <link rel="stylesheet" type="text/css" href="_twbs/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="_twbs/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" type="text/css" href="_font/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="_css/navmenu-reveal.css">
 
     <link rel="stylesheet" type="text/css" href="_css/main.css">
@@ -14,8 +15,10 @@
     <div class="navmenu navmenu-default navmenu-fixed-left" id="slideout">
         <div class="container">
             <p class="slidehead">About this Project</p>
-            <p>Inspired by <a href="http://www.tufts.edu/alumni/magazine/fall2013/features/up-in-arms.html" target="_blank">this article</a> published Fall 2013 in Tufts University Alumni Magazine, I
-            </p>
+            <p>Inspired by <a href="http://www.tufts.edu/alumni/magazine/fall2013/features/up-in-arms.html" target="_blank">this article</a> published Fall 2013 in Tufts University Alumni Magazine, I decided to conduct a data study for myself to determine if there is a discernable pattern for regional attitudes towards health and human mortality.</p>
+            <p>The red borders define "The American Nations of Today" as demarcated in the article (below):</p>
+            <p><a href="_img/upinarms-map-1024.jpg" data-toggle="lightbox"><img src="_img/upinarms-map-1024.jpg" style="width:260px"/></a></p>
+            <p> <a href=""><i class="fa fa-github-square fa-2x"></i></a></p>
         </div>
     </div>
 
@@ -36,10 +39,7 @@
                     </li>
                 </ul>
                 <a class="navbar-right navbar-text" href="#">
-                    <span class="glyphicon glyphicon-info-sign"></span>
-                </a>
-                <a class="navbar-right navbar-text" href="#">
-                    <span class="glyphicon glyphicon-question-sign"></span>
+                    <i class="fa fa-info-circle"></i>
                 </a>
                 <form class="navbar-form navbar-right navbar-text">
                     <div class="checkbox form-group">
@@ -63,6 +63,7 @@
                 <p class="lead" id="desc">&nbsp;</p>
 <!--                 <p id="ques">&nbsp;
                     <br/>&nbsp;</p> -->
+                <div id="sources">&nbsp;</div>
             </div>
             <div class="row">
                 <div class="col-md-10" id="gridLeft">
@@ -94,6 +95,9 @@
                                 <h4>&nbsp;</h4>
                                 <p>&nbsp;</p>
                             </div>
+                            <div id="chart-info">
+                                <svg width="204" height="20"><g><line class="line" x1="10" y1="10" x2="25" y2="10" stroke-width="1" stroke="purple"></line><text class="small" x="30" y="15"> indicates national average</text></g></svg>
+                            </div>
                             <div id="county-chart"></div>
                             <div id="county-detail"></div>
                         </div>
@@ -106,6 +110,7 @@
 
     <script type="text/javascript" src="_libs/jquery-1.10.2.js"></script>
     <script type="text/javascript" src="_twbs/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="_libs/ekko-lightbox.js"></script>
     <script type="text/javascript" src="_libs/offcanvas.js"></script>
     <script type="text/javascript" src="_libs/d3.v3.js"></script>
     <script type="text/javascript" src="_libs/queue.v1.js"></script>

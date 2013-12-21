@@ -15,7 +15,7 @@ var x, y, xAxis, yAxis, barChart, mgn, cW, cH;
 
 var hash = ((!window.location.hash) ? 'totAvg' : document.URL.substr(document.URL.indexOf('#') + 1));
 
-var dscale = width * 1.2;
+var dscale = width;// * 1.2;
 var dtrans = [width / 2, height / 2];
 
 var projmap = d3.geo.albersUsa()
@@ -121,7 +121,6 @@ function showData(dFilter) {
     dataFilter = dFilter;
     var cntyInfo = {};
     var vals = [];
-
 
     makeHeader();
 
@@ -243,11 +242,9 @@ function showCountyBarChart(d) {
     x = d3.scale.ordinal()
         .rangeRoundBands([0, cW], .1);
 
-
     xAxis = d3.svg.axis()
         .scale(x)
         .orient("bottom");
-
 
     x.domain(data.map(function(d) {
         return d.label;
@@ -262,7 +259,6 @@ function showCountyBarChart(d) {
     barChart.selectAll('.bar').remove();
     barChart.selectAll('.line').remove();
     barChart.selectAll('.barlabels').remove();
-
 
     barChart.append('g')
         .attr('class', 'y axis')
@@ -284,13 +280,12 @@ function showCountyBarChart(d) {
             return "rotate(-60,0,0)"
         });
 
-    barChart.selectAll(".bar")
+    var bars = barChart.selectAll(".bar")
         .data(data)
         .enter().append("rect")
         .attr("class", "bar")
         .attr("fill", function(d) {
             if (d.id == dataFilter) {
-
                 return d.color;
             } else {
                 return 'steelblue';
@@ -377,8 +372,6 @@ function makeBarChart() {
         .attr('dy', '.71em')
         .style('text-anchor', 'end')
         .text('Rate');
-
-
 }
 
 function hideCountyData(d) {
@@ -455,6 +448,7 @@ function makeHeader() {
     $('#hdrTitle h2').html(metaD.label);
     $('#desc').html(metaD.description);
     $('#ques').html('<em>' + metaD.question + '</em>');
+    $('#sources').html('<small><em>Data Source: '+metaD.sources+'</em></small>');
 }
 
 $('ul#navDropdownLeft').on('click', 'li', function() {
