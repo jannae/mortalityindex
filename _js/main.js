@@ -15,7 +15,7 @@ var x, y, xAxis, yAxis, barChart, mgn, cW, cH;
 
 var hash = ((!window.location.hash) ? 'totAvg' : document.URL.substr(document.URL.indexOf('#') + 1));
 
-var dscale = width; // * 1.1;
+var dscale = width * 1.2;
 var dtrans = [width / 2, height / 2];
 
 var projmap = d3.geo.albersUsa()
@@ -289,7 +289,6 @@ function showCountyBarChart(d) {
         .enter().append("rect")
         .attr("class", "bar")
         .attr("fill", function(d) {
-            console.log(d.id+', '+dataFilter+', '+d.color);
             if (d.id == dataFilter) {
 
                 return d.color;
@@ -468,7 +467,6 @@ $('ul#navDropdownLeft').on('click', 'li', function() {
 });
 
 
-
 $(".navbar-form input[type='checkbox']").on('click', function() {
     if (this.checked) {
         $('#' + this.name).attr('style', 'stroke-width:1.25px');
@@ -476,9 +474,3 @@ $(".navbar-form input[type='checkbox']").on('click', function() {
         $('#' + this.name).removeAttr('style');
     }
 });
-
-// #state-borders {
-//     stroke: #00ff00;
-//     stroke-width: 0.5px;
-// }
-// #new-borders

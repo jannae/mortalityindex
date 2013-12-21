@@ -5,94 +5,108 @@
 
     <link rel="stylesheet" type="text/css" href="_twbs/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="_twbs/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" type="text/css" href="_css/navmenu-reveal.css">
 
     <link rel="stylesheet" type="text/css" href="_css/main.css">
 </head>
 
 <body>
-    <!-- Fixed navbar -->
-    <nav class="navbar navbar-default" id="topNav" role="navigation">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                <span class="sr-only">Toggle navigation</span>
+    <div class="navmenu navmenu-default navmenu-fixed-left" id="slideout">
+        <div class="container">
+            <p class="slidehead">About this Project</p>
+            <p>Inspired by <a href="http://www.tufts.edu/alumni/magazine/fall2013/features/up-in-arms.html" target="_blank">this article</a> published Fall 2013 in Tufts University Alumni Magazine, I
+            </p>
+        </div>
+    </div>
+
+    <div class="canvas">
+        <nav class="navbar navbar-default" id="topNav" role="navigation">
+            <button type="button" class="navbar-toggle" data-toggle="offcanvas" data-recalc="false" data-target=".navmenu" data-canvas=".canvas">
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-text" href="#"><span class="glyphicon glyphicon-list"></span></a>
-            <a class="navbar-brand" href="#">The Mortality Attitude Index</a>
-        </div>
-
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-                <li class="dropdown">
-                    <a href="#" id="navDropdownTitle" class="dropdown-toggle" data-toggle="dropdown">Select Behavioral Risk Data Filter <b class="caret"></b></a>
-                    <ul class="dropdown-menu" id="navDropdownLeft"></ul>
-                </li>
-            </ul>
-            <a class="navbar-right navbar-text" href="#"><span class="glyphicon glyphicon-info-sign"></span></a>
-            <a class="navbar-right navbar-text" href="#"><span class="glyphicon glyphicon-question-sign"></span></a>
-            <form class="navbar-form navbar-right navbar-text">
-                <div class="checkbox form-group">
-                <label>Toggle Borders:</label>
-                    <label>
-                        <input type="checkbox" id="togglenew" name="new-borders" checked> New America
-                    </label>
-                    <label>
-                        <input type="checkbox" id="togglestates" name="state-borders" checked> States
-                    </label>
-                    <label>
-                        <input type="checkbox" id="toggleus" name="us-borders" checked> Nation
-                    </label>
-                </div>
-            </form>
-        </div>
-        <!-- /.navbar-collapse -->
-    </nav>
-    <div class="container">
-    <div class="page-header" id="hdrTitle">
-      <h2>&nbsp;</h2>
-      <p class="lead" id="desc">&nbsp;</p>
-      <p id="ques">&nbsp;<br/>&nbsp;</p>
-    </div>
-        <div class="row">
-            <div class="col-md-10" id="gridLeft">
-                <div id="map-container">
-                    <div id="map-main"></div>
-                    <!-- /#map-main -->
-                </div>
-                <!-- /#map-container -->
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">The Mortality Attitude Index</a>
             </div>
-            <!--/span-->
+                <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a href="#" id="navDropdownTitle" class="dropdown-toggle" data-toggle="dropdown">Select Behavioral Risk Data Filter <b class="caret"></b></a>
+                        <ul class="dropdown-menu" id="navDropdownLeft"></ul>
+                    </li>
+                </ul>
+                <a class="navbar-right navbar-text" href="#">
+                    <span class="glyphicon glyphicon-info-sign"></span>
+                </a>
+                <a class="navbar-right navbar-text" href="#">
+                    <span class="glyphicon glyphicon-question-sign"></span>
+                </a>
+                <form class="navbar-form navbar-right navbar-text">
+                    <div class="checkbox form-group">
+                        <label>Toggle Borders:</label>
+                        <label>
+                            <input type="checkbox" id="togglenew" name="new-borders" checked>New America
+                        </label>
+                        <label>
+                            <input type="checkbox" id="togglestates" name="state-borders" checked>States
+                        </label>
+                        <label>
+                            <input type="checkbox" id="toggleus" name="us-borders" checked>Nation
+                        </label>
+                    </div>
+                </form>
+        </nav><!-- /.navbar .navbar-default-->
 
-            <div class="col-md-2" id="legend">
-                <div id="key-container">
-                    <div class="key-heading"><h3>Key Heading</h3></div>
-                    <!-- /.key-heading -->
-                </div>
-                <!-- /#key-container -->
-                <div id="county-data">
-                    <div class="key-heading">
-                        <h3>County data<br/><small>Mouseover map for detail</small></h3>
-                    </div>
-                    <div class="key-body" id="county-main">
-                        <div id="county-info"><h4>&nbsp;</h4><p>&nbsp;<br/>&nbsp;</p></div>
-                        <div id="county-chart"></div>
-                        <div id="county-detail"></div>
-                    </div>
-                </div>
+        <div class="container">
+            <div class="page-header" id="hdrTitle">
+                <h2>&nbsp;</h2>
+                <p class="lead" id="desc">&nbsp;</p>
+<!--                 <p id="ques">&nbsp;
+                    <br/>&nbsp;</p> -->
             </div>
-            <!--/span-->
-        </div>
-        <!-- /.row -->
+            <div class="row">
+                <div class="col-md-10" id="gridLeft">
+                    <div id="map-container">
+                        <div id="map-main"></div>
+                        <!-- /#map-main -->
+                    </div>
+                    <!-- /#map-container -->
+                </div>
+                <!--/span-->
 
-    </div>
-    <!-- /.container -->
+                <div class="col-md-2" id="legend">
+                    <div id="key-container">
+                        <div class="key-heading">
+                            <h3>Rate in %</h3>
+                        </div>
+                        <!-- /.key-heading -->
+                    </div>
+                    <!-- /#key-container -->
+                    <div id="county-data">
+                        <div class="key-heading">
+                            <h3>County data
+                                <br/>
+                                <small>Mouseover map for detail</small>
+                            </h3>
+                        </div>
+                        <div class="key-body" id="county-main">
+                            <div id="county-info">
+                                <h4>&nbsp;</h4>
+                                <p>&nbsp;</p>
+                            </div>
+                            <div id="county-chart"></div>
+                            <div id="county-detail"></div>
+                        </div>
+                    </div>
+                </div><!--/span-->
+            </div><!-- /.row -->
+        </div><!-- /.container -->
 
-    <script type="text/javascript" src="_libs/jquery-2.0.3.js"></script>
+    </div><!-- /.canvas -->
+
+    <script type="text/javascript" src="_libs/jquery-1.10.2.js"></script>
     <script type="text/javascript" src="_twbs/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="_libs/offcanvas.js"></script>
     <script type="text/javascript" src="_libs/d3.v3.js"></script>
     <script type="text/javascript" src="_libs/queue.v1.js"></script>
     <script type="text/javascript" src="_libs/topojson.v1.js"></script>

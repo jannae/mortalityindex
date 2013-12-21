@@ -41,8 +41,9 @@ Interesting Projects
 * [http://code.minnpost.com/simple-map-d3/](http://code.minnpost.com/simple-map-d3/)
 * [http://dabrownstein.wordpress.com/category/data-visualization/](http://dabrownstein.wordpress.com/category/data-visualization/)
 * [http://www.jeromecukier.net/projects/crime/murders.html](http://www.jeromecukier.net/projects/crime/murders.html)
-* http://www.jeromecukier.net/
+* [http://www.jeromecukier.net/](http://www.jeromecukier.net/)
 
-Tools:
+Tools:  
+
 * [http://openrefine.org/](http://openrefine.org/)
 
