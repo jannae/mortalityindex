@@ -31,17 +31,17 @@ var usSvg = d3.select('#map-main').append('svg')
 
 var group = usSvg.append('g');
 
-var keyblock = d3.select("#key-container")
-    .append("div")
+var keyblock = d3.select('#key-container')
+    .append('div')
     .attr('id', 'key-main')
     .attr('height', 100)
     .attr('width', keywidth);
 
 queue()
-    .defer(d3.json, "_data/us.json")
-    .defer(d3.json, "_data/na.json")
-    .defer(d3.json, "_data/meta.json")
-    .defer(d3.json, "_data/brfss.json")
+    .defer(d3.json, '_data/us.json')
+    .defer(d3.json, '_data/na.json')
+    .defer(d3.json, '_data/meta.json')
+    .defer(d3.json, '_data/brfss.json')
     .await(ready);
 
 var us,
@@ -117,7 +117,7 @@ function prepare() {
 }
 
 function showData(dFilter) {
-    $('g').html("");
+    $('g').html('');
     dataFilter = dFilter;
     var cntyInfo = {};
     var vals = [];
@@ -136,7 +136,7 @@ function showData(dFilter) {
 
     color = d3.scale.linear()
         .domain([minVal, maxVal])
-        .range(["white", dColor])
+        .range(['white', dColor])
         .interpolate(d3.interpolateLab);
 
     quantize = d3.scale.quantile()
@@ -178,9 +178,15 @@ function makeKey() {
         .attr('class', 'key-color-block')
         .style('background-color', function(d) {
             var clrVal;
-            if (d == 0) clrVal = color(d3.round(minVal || 0));
-            if (d != 0 && d != 12) clrVal = color(d3.round(quantize.quantiles()[d]));
-            if (d == 12) clrVal = color(d3.round(maxVal || 0));
+            if (d == 0) {
+                clrVal = color(d3.round(minVal || 0));
+            }
+            if (d != 0 && d != 12) {
+                clrVal = color(d3.round(quantize.quantiles()[d]));
+            }
+            if (d == 12) {
+                clrVal = color(d3.round(maxVal || 0));
+            }
             return clrVal;
         });
 
@@ -188,9 +194,15 @@ function makeKey() {
         .attr('class', 'key-value text-center text-muted')
         .text(function(d) {
             var keyVal;
-            if (d == 0) keyVal = "N/D*";
-            if (d != 0 && d != 12) keyVal = d3.round(quantize.quantiles()[d]) + '%';
-            if (d == 12) keyVal = d3.round(maxVal || 0) + '%';
+            if (d == 0) {
+                keyVal = 'N/D*';
+            }
+            if (d != 0 && d != 12) {
+                keyVal = d3.round(quantize.quantiles()[d]) + '%';
+            }
+            if (d == 12) {
+                keyVal = d3.round(maxVal || 0) + '%';
+            }
             return keyVal;
         });
 
@@ -207,7 +219,7 @@ function showCountyData(d) {
     var stats = brfss[d.id]['d'];
 
     var rate = stats[dataFilter].rate;
-    var countyRates = "";
+    var countyRates = '';
 
     $.each(stats, function(k, v) {
         var num = (v.rate).toFixed(2);
@@ -217,7 +229,7 @@ function showCountyData(d) {
     });
 
     $('#county-info h4').html(nm + ' County, ' + st);
-    $('#county-info p').html('<strong>Population:</strong> '+pop);
+    $('#county-info p').html('<strong>Population:</strong> ' + pop);
 }
 
 function showCountyBarChart(d) {
@@ -230,21 +242,21 @@ function showCountyBarChart(d) {
     var data = [];
 
     $.each(stats, function(k, v) {
-        var loop = {}
+        var loop = {};
         loop.id = k;
         loop.label = meta['d'][k].label;
-        loop.rate = v.rate / 100
+        loop.rate = v.rate / 100;
         loop.color = meta['d'][k].color;
         loop.natAvg = meta['d'][k].natAvg / 100;
         data.push(loop);
-    })
+    });
 
     x = d3.scale.ordinal()
         .rangeRoundBands([0, cW], .1);
 
     xAxis = d3.svg.axis()
         .scale(x)
-        .orient("bottom");
+        .orient('bottom');
 
     x.domain(data.map(function(d) {
         return d.label;
@@ -271,72 +283,70 @@ function showCountyBarChart(d) {
         .text('Rate');
 
     barChart.selectAll('.x')
-        .selectAll("text")
+        .selectAll('text')
     // .attr('transform', 'rotate(-60, 0, 40)');
-        .style("text-anchor", "end")
-        .attr("dx", "-.8em")
-        .attr("dy", ".15em")
-        .attr("transform", function(d) {
-            return "rotate(-60,0,0)"
+        .style('text-anchor', 'end')
+        .attr('dx', '-.8em')
+        .attr('dy', '.15em')
+        .attr('transform', function(d) {
+            return 'rotate(-60,0,0)';
         });
 
-    var bars = barChart.selectAll(".bar")
-        .data(data);
-
-    bars.enter().append("rect")
-        .attr("class", "bar")
-        .attr("fill", function(d) {
+    var bars = barChart.selectAll('.bar')
+        .data(data)
+        .enter().append('rect')
+        .attr('class', 'bar')
+        .attr('fill', function(d) {
             if (d.id == dataFilter) {
                 return d.color;
             } else {
                 return 'steelblue';
             }
         })
-        .attr("x", function(d) {
+        .attr('x', function(d) {
             return x(d.label);
         })
-        .attr("width", x.rangeBand());
-
-    bars.transition()
-        .duration(500).attr("height", function(d) {
-            return cH - y(d.rate);
-        })
-        .attr("y", function(d) {
+        .attr('width', x.rangeBand())
+        .attr('y', function(d) {
             return y(d.rate);
+        })
+        .attr('height', function(d) {
+            return cH - y(d.rate);
         });
 
-    barChart.selectAll(".line")
+
+    barChart.selectAll('.line')
         .data(data)
-        .enter().append("line")
-        .attr("class", "line")
-        .attr("x1", function(d) {
+        .enter().append('line')
+        .attr('class', 'line')
+        .attr('x1', function(d) {
             return x(d.label) - 1;
         })
-        .attr("y1", function(d) {
+        .attr('y1', function(d) {
             return y(d.natAvg);
         })
-        .attr("x2", function(d) {
+        .attr('x2', function(d) {
             return x(d.label) + x.rangeBand() + 1;
         })
-        .attr("y2", function(d) {
+        .attr('y2', function(d) {
             return y(d.natAvg);
         })
-        .attr("stroke-width", 1)
-        .attr("stroke", "purple");
+        .attr('stroke-width', 1)
+        .attr('stroke', 'purple');
 
     barChart.selectAll('.barlabels')
         .data(data)
         .enter().append('text')
-        .attr("class", "barlabels text-muted")
-        .attr("x", function(d) {
+        .attr('class', 'barlabels text-muted')
+        .attr('x', function(d) {
             return x(d.label);
         })
-        .attr("y", function(d) {
-            return y(d.rate)-5;
+        .attr('y', function(d) {
+            return y(d.rate) - 5;
         })
         // .append('small')
         .text(function(d) {
-            return (d.rate*100).toFixed(0);
+            return (d.rate * 100).toFixed(0);
         });
 }
 
@@ -350,8 +360,8 @@ function makeBarChart() {
     cW = $('#county-chart').width() - mgn.left - mgn.right;
     cH = 150 - mgn.top - mgn.bottom;
 
-    barChart = d3.select("#county-chart")
-        .append("svg")
+    barChart = d3.select('#county-chart')
+        .append('svg')
         .attr('width', cW + mgn.left + mgn.right)
         .attr('height', cH + mgn.top + mgn.bottom + 125)
         .append('g')
@@ -362,8 +372,8 @@ function makeBarChart() {
 
     yAxis = d3.svg.axis()
         .scale(y)
-        .orient("left")
-        .ticks(6, "%");
+        .orient('left')
+        .ticks(6, '%');
 
     barChart.append('g')
         .attr('class', 'y axis')
@@ -435,13 +445,13 @@ function redraw() {
 }
 
 function makeNav() {
-    $.getJSON("_data/meta.json", function(data) {
+    $.getJSON('_data/meta.json', function(data) {
         var items = [];
         $.each(data.d, function(k, v) {
             var active = (k == dataFilter) ? ' class="active"' : '';
             items.push('<li id="' + k + '"' + active + '><a href="#' + k + '">' + v.label + '</a></li>');
         });
-        $("#navDropdownLeft").append(items.join(""));
+        $('#navDropdownLeft').append(items.join(''));
     });
 }
 
@@ -454,16 +464,16 @@ function makeHeader() {
 }
 
 $('ul#navDropdownLeft').on('click', 'li', function() {
-    $('#navDropdownLeft li').removeClass("active");
+    $('#navDropdownLeft li').removeClass('active');
     // add class to the one we clicked
-    $(this).addClass("active");
+    $(this).addClass('active');
     var navLab = $(this).text();
     $('#navDropdownTitle').html(navLab + ' <b class="caret"></b>');
     showData(this.id);
 });
 
 
-$(".navbar-form input[type='checkbox']").on('click', function() {
+$('.navbar-form input[type="checkbox"]').on('click', function() {
     if (this.checked) {
         $('#' + this.name).attr('style', 'stroke-width:1.25px');
     } else {
