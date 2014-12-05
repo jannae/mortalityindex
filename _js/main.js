@@ -281,8 +281,9 @@ function showCountyBarChart(d) {
         });
 
     var bars = barChart.selectAll(".bar")
-        .data(data)
-        .enter().append("rect")
+        .data(data);
+
+    bars.enter().append("rect")
         .attr("class", "bar")
         .attr("fill", function(d) {
             if (d.id == dataFilter) {
@@ -294,14 +295,15 @@ function showCountyBarChart(d) {
         .attr("x", function(d) {
             return x(d.label);
         })
-        .attr("width", x.rangeBand())
+        .attr("width", x.rangeBand());
+
+    bars.transition()
+        .duration(500).attr("height", function(d) {
+            return cH - y(d.rate);
+        })
         .attr("y", function(d) {
             return y(d.rate);
-        })
-        .attr("height", function(d) {
-            return cH - y(d.rate);
         });
-
 
     barChart.selectAll(".line")
         .data(data)

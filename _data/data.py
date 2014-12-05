@@ -40,7 +40,7 @@ quest = {
     'noExercise': 'During the past month, other than your regular job, did you participate in any physical activities or exercises such as running, calisthenics, golf, gardening, or walking for exercise?',
     'obesity': 'About how much do you weigh without shoes? (and) About how tall are you without shoes?',
     'phyisicianUseDelay': 'Was there a time in the past 12 months when you needed to see a doctor but could not because of cost?',
-    'socEmoSupport': 'Social-Emotional Support Lacking',
+    'socEmoSupport': 'How often do you get the social and emotional support you need?',
     'firearmDeaths': '',
     'nonFirearmDeaths': '',
     'totAvg': 'A high number indicates a low value of life, a low number indicates a high value.'
@@ -50,7 +50,7 @@ descs = {
     'bingeDrinking': 'Respondents who report having 5+ (men) or 4+ (women) drinks on one or more occasions during the previous 30 days. (2005-2011)',
     'smoking': 'Respondents who report smoking cigarettes all or some days. (2005-2011)',
     'excessDrinking': 'Respondents who drank >2 (men) or >1 (women) drinks per day on average or who drank 5+ (men) or 4+ (women) drinks during a single occasion. (2005-2011)',
-    'poorHealth': 'Respondents with self-reported fair or poor health status. (2005-2011)',
+    'poorHealth': 'Respondents with self-reported fair or poor health status (on a scale of Excellent, Very good, Good, Fair, Or Poor). (2005-2011)',
     'noExercise': 'Respondents who report no exercise in past month. (2005-2011)',
     'obesity': 'Respondents aged 18+ years who have a body mass index (BMI) >=30.0 kg/m<sup>2</sup> calculated from self-reported weight and height. (2005-2011)',
     'phyisicianUseDelay': 'Respondents who needed to see a doctor but could not because of cost in the past 12 months. (2005-2011)',
