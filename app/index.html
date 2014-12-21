@@ -1,23 +1,34 @@
-<!DOCTYPE html>
-
-<head>
+<!doctype html>
+<html class="no-js">
+  <head>
     <meta charset="utf-8">
+    <title>The Behavioral Mortality Index</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <!-- build:css(.) styles/vendor.css -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css" />
+    <link rel="stylesheet" href="bower_components/jasny-bootstrap/dist/css/jasny-bootstrap.css" />
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css(.tmp) styles/main.css -->
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/navmenu-reveal.css">
+    <!-- endbuild -->
+  </head>
+  <body>
+    <!--[if lt IE 10]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
 
-    <link rel="stylesheet" type="text/css" href="_twbs/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="_twbs/css/bootstrap-theme.min.css">
-    <link rel="stylesheet" type="text/css" href="_font/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="_css/navmenu-reveal.css">
 
-    <link rel="stylesheet" type="text/css" href="_css/main.css">
-</head>
-
-<body>
     <div class="navmenu navmenu-default navmenu-fixed-left" id="slideout">
         <div class="container">
             <p class="slidehead">About this Project</p>
             <p>Inspired by <a href="http://www.tufts.edu/alumni/magazine/fall2013/features/up-in-arms.html" target="_blank">this article</a> published Fall 2013 in Tufts University Alumni Magazine, I decided to conduct a data study to determine if there is data-based discernible pattern for regional attitudes towards health and human mortality.</p>
             <p>The red borders define "The American Nations of Today" as demarcated in <a href="http://www.tufts.edu/alumni/magazine/fall2013/features/up-in-arms.html" target="_blank">the article</a> (below):</p>
-            <p><a href="_img/upinarms-map-1024.jpg" data-toggle="lightbox"><img src="_img/upinarms-map-1024.jpg" style="width:260px"/></a></p>
+            <p><a href="images/upinarms-map-1024.jpg" data-toggle="lightbox"><img src="images/upinarms-map-1024.jpg" style="width:260px"/></a></p>
             <p>The data sets were selected from the <a href="http://www.cdc.gov/brfss/" target="_blank">CDC's Behavioral Risk Factor Surveillance System</a> </p>
             <p> <a href=""><i class="fa fa-github-square fa-2x"></i></a></p>
         </div>
@@ -33,6 +44,7 @@
             <div class="navbar-header">
                 <a class="navbar-brand" href="#">The Behavioral Mortality Index</a>
             </div>
+
                 <ul class="nav navbar-nav">
                     <li class="dropdown">
                         <a href="#" id="navDropdownTitle" class="dropdown-toggle" data-toggle="dropdown">Select Behavioral Risk Data Filter <b class="caret"></b></a>
@@ -109,15 +121,36 @@
 
     </div><!-- /.canvas -->
 
-    <script type="text/javascript" src="_libs/jquery-1.10.2.js"></script>
-    <script type="text/javascript" src="_twbs/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="_libs/ekko-lightbox.js"></script>
-    <script type="text/javascript" src="_libs/offcanvas.js"></script>
-    <script type="text/javascript" src="_libs/d3.v3.js"></script>
-    <script type="text/javascript" src="_libs/queue.v1.js"></script>
-    <script type="text/javascript" src="_libs/topojson.v1.js"></script>
-    <script type="text/javascript" src="_js/utils.js"></script>
-    <script type="text/javascript" src="_js/main.js"></script>
-</body>
 
+    <!-- build:js(.) scripts/vendor.js -->
+    <!-- bower:js -->
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="bower_components/d3/d3.js"></script>
+    <script src="bower_components/ekko-lightbox/dist/ekko-lightbox.min.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
+
+    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+    <script>
+      (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+      function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+      e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+      e.src='//www.google-analytics.com/analytics.js';
+      r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+      ga('create','UA-XXXXX-X');ga('send','pageview');
+    </script>
+
+    <!-- build:js(.) scripts/plugins.js -->
+    <script src="bower_components/queue-async/queue.js"></script>
+    <script src="bower_components/topojson/topojson.js"></script>
+    <script src="bower_components/jasny-bootstrap/dist/js/jasny-bootstrap.js"></script>
+    <script src="bower_components/ekko-lightbox/dist/ekko-lightbox.js"></script>
+    <!-- endbuild -->
+
+    <!-- build:js({app,.tmp}) scripts/main.js -->
+    <script src="scripts/utils.js"></script>
+    <script src="scripts/main.js"></script>
+    <!-- endbuild -->
+</body>
 </html>
