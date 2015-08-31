@@ -8,7 +8,7 @@ Inspired by [this article](http://www.tufts.edu/alumni/magazine/fall2013/feature
 
 The red borders define "The American Nations of Today" as demarcated in [the article](http://www.tufts.edu/alumni/magazine/fall2013/features/up-in-arms.html) (below): 
 
-![The American Nations Today (source: http://www.tufts.edu/alumni/magazine/fall2013/features/up-in-arms.html)](_img/upinarms-map-1024.jpg)
+![The American Nations Today (source: http://www.tufts.edu/alumni/magazine/fall2013/features/up-in-arms.html)](app/images/upinarms-map-1024.jpg "American Nations Today")
 
 The data sets (as outlined below) were selected from the [CDC's Behavioral Risk Factor Surveillance System](http://www.cdc.gov/brfss/). This study is: 
 
