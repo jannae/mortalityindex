@@ -1,8 +1,8 @@
-#Mapping America's Behaviors Towards Human Mortality
-##Final Project for [Data Representation](http://itp.blprnt.com/), ITP, 2013.12
+# Mapping America's Behaviors Towards Human Mortality
+## Final Project for [Data Representation](http://itp.blprnt.com/), ITP, 2013.12
 
 
-###About this Project
+### About this Project
 
 Inspired by [this article](http://www.tufts.edu/alumni/magazine/fall2013/features/up-in-arms.html) published Fall 2013 in Tufts University Alumni Magazine, I decided to conduct a data study to determine if there is data-based discernible pattern for regional attitudes towards health and human mortality.
 
@@ -13,12 +13,12 @@ The red borders define "The American Nations of Today" as demarcated in [the art
 The data sets (as outlined below) were selected from the [CDC's Behavioral Risk Factor Surveillance System](http://www.cdc.gov/brfss/). This study is: 
 
 
-###Methodologies
+### Methodologies
 
 
-###Technologies
+### Technologies
 
-###Data Sets Used
+### Data Sets Used
 
 The data sets (as outlined below) were selected from the [CDC's Behavioral Risk Factor Surveillance System](http://www.cdc.gov/brfss/).
 
@@ -31,4 +31,3 @@ The data sets (as outlined below) were selected from the [CDC's Behavioral Risk 
 * [No exercise: adults (percent) (Source: BRFSS)](http://www.healthindicators.gov/Indicators/No-exercise-adults-percent-Source-BRFSS_120/Profile)
 * [Obesity: adults (percent) (Source: BRFSS)](http://www.healthindicators.gov/Indicators/Obesity-adults-percent-Source-BRFSS_15/Profile)
 * [Social-emotional support lacking: Adults (percent)](http://www.healthindicators.gov/Indicators/Social-emotional-support-lacking-Adults-percent_50028/Profile)
-* 
